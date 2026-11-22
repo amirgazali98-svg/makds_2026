@@ -1,0 +1,1243 @@
+
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <meta name="theme-color" content="#061a48">
+  <meta name="description"
+        content="Buku Program Digital Majlis Anugerah Kecemerlangan Diniah dan Sahsiah MAKDS 2026, KAFA SK Jalan Kuantan 2.">
+
+  <title>MAKDS 2026 | Buku Program Digital</title>
+
+  <style>
+    :root {
+      --navy: #04102d;
+      --blue: #09265e;
+      --royal: #103b85;
+      --gold: #e8c779;
+      --gold-light: #fff0bb;
+      --white: #fffaf0;
+      --border: rgba(232,199,121,.75);
+      --duration: 750ms;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--white);
+      background:
+        radial-gradient(circle at top, #174b92, #030a21 75%);
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 4px;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 12px 25px;
+    }
+
+    .topbar {
+      width: min(100%, 920px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 4px 18px;
+      font-family: Arial, sans-serif;
+    }
+
+    .brand {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--gold);
+    }
+
+    .controls {
+      display: flex;
+      gap: 7px;
+    }
+
+    .control-btn {
+      min-height: 44px;
+      padding: 9px 12px;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      background: #071c4c;
+      color: var(--gold-light);
+      font: 600 12px Arial, sans-serif;
+    }
+
+    .book {
+      position: relative;
+      width: min(100%, 850px);
+      height: min(74vh, 640px);
+      min-height: 540px;
+      perspective: 1800px;
+      isolation: isolate;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      background:
+        radial-gradient(ellipse at 50% 25%,
+          #16468d 0%, #09275d 43%, #030e30 100%);
+      box-shadow:
+        inset 0 0 0 6px rgba(232,199,121,.09),
+        inset 0 0 60px #0008,
+        0 18px 55px #0008;
+      transform-origin: left center;
+      backface-visibility: hidden;
+    }
+
+    .page.active { display: block; }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(255,222,137,.65);
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .page::after {
+      content: "❦";
+      position: absolute;
+      bottom: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--gold);
+      font-size: 27px;
+      pointer-events: none;
+    }
+
+    .corner {
+      position: absolute;
+      z-index: 2;
+      color: var(--gold);
+      font-size: 34px;
+      text-shadow: 0 0 15px #ffd97877;
+      pointer-events: none;
+    }
+
+    .corner.tl { top: 12px; left: 24px; }
+    .corner.tr {
+      top: 12px;
+      right: 24px;
+      transform: scaleX(-1);
+    }
+
+    .page-content {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      padding: 54px 45px 46px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) transparent;
+      text-align: center;
+    }
+
+    .page h1,
+    .page h2 {
+      color: var(--gold);
+      line-height: 1.15;
+    }
+
+    .page h1 { font-size: clamp(29px, 5vw, 55px); }
+    .page h2 { font-size: clamp(25px, 4vw, 40px); }
+
+    .page p {
+      line-height: 1.75;
+      font-size: clamp(14px, 2vw, 17px);
+    }
+
+    .eyebrow {
+      font: 700 11px Arial, sans-serif;
+      color: var(--gold-light);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .ornament {
+      margin: 18px 0;
+      color: var(--gold);
+      font-size: 22px;
+      letter-spacing: 9px;
+    }
+
+    .panel {
+      width: min(100%, 620px);
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid rgba(232,199,121,.45);
+      border-radius: 12px;
+      background: rgba(2,13,43,.55);
+    }
+
+    .muted { color: #d7d9e4; }
+
+    /* KULIT HADAPAN: GAMBAR KEEMPAT */
+    .cover {
+      background-color: #06183c;
+      background-image:
+        linear-gradient(#03102c22, #03102c22),
+        url("assets/cover.jpg");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .cover::before {
+      border-color: transparent;
+    }
+
+    .cover::after { display: none; }
+
+    .cover .corner { display: none; }
+
+    .cover-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding-bottom: 32px;
+    }
+
+    .cover-content .open-btn {
+      position: relative;
+      z-index: 4;
+    }
+
+    .open-btn {
+      min-height: 48px;
+      padding: 13px 25px;
+      border: 1px solid #fff0bc;
+      border-radius: 30px;
+      background: linear-gradient(
+        135deg, #ac8134, #ffe8a4, #bc8c38
+      );
+      color: #06163c;
+      font: 800 13px Arial, sans-serif;
+      letter-spacing: 1px;
+      box-shadow: 0 0 20px #e7c77566;
+    }
+
+    .open-btn:hover { filter: brightness(1.12); }
+
+    .identity {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .identity img.logo {
+      width: 100px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .identity img.khat {
+      width: min(100%, 370px);
+      height: auto;
+      object-fit: contain;
+      background: #000;
+      border-radius: 4px;
+    }
+
+    .details {
+      display: grid;
+      gap: 12px;
+      max-width: 550px;
+      margin: 25px auto;
+    }
+
+    .detail {
+      padding: 12px;
+      border-bottom: 1px solid #e8c77955;
+    }
+
+    .detail strong {
+      display: block;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .schedule {
+      max-width: 680px;
+      margin: 20px auto 0;
+      text-align: left;
+    }
+
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 14px;
+      padding: 13px 5px;
+      border-bottom: 1px solid #d7b56955;
+      font: 14px/1.6 Arial, sans-serif;
+    }
+
+    .schedule-item time {
+      color: var(--gold-light);
+      font-weight: bold;
+    }
+
+    .schedule-item small {
+      display: block;
+      margin-top: 5px;
+      color: #d8d9e3;
+      font-size: 12px;
+    }
+
+    .award-list {
+      max-width: 550px;
+      margin: 20px auto;
+      text-align: left;
+    }
+
+    .award-item {
+      padding: 13px 15px;
+      margin-bottom: 9px;
+      border-left: 3px solid var(--gold);
+      background: #061a45a8;
+      font: 14px/1.5 Arial, sans-serif;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .placeholder {
+      padding: 40px 15px;
+      border: 1px dashed var(--gold);
+      border-radius: 12px;
+      color: #e4d7b6;
+    }
+
+    .bottom-nav {
+      width: min(100%, 850px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-top: 15px;
+      font: 13px Arial, sans-serif;
+    }
+
+    .nav-buttons { display: flex; gap: 8px; }
+
+    .nav-buttons button {
+      min-height: 44px;
+      padding: 10px 14px;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      background: #071c4c;
+      color: var(--gold-light);
+      font: 700 12px Arial, sans-serif;
+    }
+
+    .nav-buttons button:disabled {
+      opacity: .35;
+      cursor: not-allowed;
+    }
+
+    /* MENU KANDUNGAN */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,4,20,.92);
+    }
+
+    .menu-overlay.open { display: flex; }
+
+    .menu-panel {
+      width: min(100%, 430px);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      border: 1px solid var(--gold);
+      border-radius: 14px;
+      background: #071b47;
+    }
+
+    .menu-panel h2 {
+      text-align: center;
+      color: var(--gold);
+    }
+
+    .menu-panel button {
+      display: block;
+      width: 100%;
+      min-height: 44px;
+      margin: 7px 0;
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #d4ad6855;
+      border-radius: 7px;
+      background: #0b2b63;
+      color: white;
+      font: 14px Arial, sans-serif;
+    }
+
+    /* ANIMASI SELAK HALAMAN */
+    .page.flip-out-next {
+      display: block;
+      animation: flipOutNext var(--duration) ease-in forwards;
+      z-index: 6;
+    }
+
+    .page.flip-in-next {
+      display: block;
+      animation: flipInNext var(--duration) ease-out forwards;
+      z-index: 5;
+    }
+
+    .page.flip-out-prev {
+      display: block;
+      animation: flipOutPrev var(--duration) ease-in forwards;
+      z-index: 6;
+    }
+
+    .page.flip-in-prev {
+      display: block;
+      animation: flipInPrev var(--duration) ease-out forwards;
+      z-index: 5;
+    }
+
+    @keyframes flipOutNext {
+      from { transform: rotateY(0); opacity: 1; }
+      to { transform: rotateY(-85deg); opacity: .45; }
+    }
+
+    @keyframes flipInNext {
+      from { transform: rotateY(45deg); opacity: .45; }
+      to { transform: rotateY(0); opacity: 1; }
+    }
+
+    @keyframes flipOutPrev {
+      from { transform: rotateY(0); opacity: 1; }
+      to { transform: rotateY(85deg); opacity: .45; }
+    }
+
+    @keyframes flipInPrev {
+      from { transform: rotateY(-45deg); opacity: .45; }
+      to { transform: rotateY(0); opacity: 1; }
+    }
+
+    /* PARTIKEL EMAS */
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #ffe9a0;
+      box-shadow: 0 0 12px #ffe58d;
+      animation: sparkle 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes sparkle {
+      0% { opacity: .1; transform: scale(.5); }
+      100% { opacity: .8; transform: scale(1.8); }
+    }
+
+    /* MOD MEMBACA */
+    body.reading-mode .book {
+      height: auto;
+      min-height: 0;
+      perspective: none;
+    }
+
+    body.reading-mode .page.active {
+      position: relative;
+      min-height: 550px;
+      height: auto;
+    }
+
+    body.reading-mode .page.active .page-content {
+      height: auto;
+      overflow: visible;
+    }
+
+    body.reading-mode .particles { display: none; }
+
+    @media (max-width: 600px) {
+      .app { padding: 8px 7px 20px; }
+
+      .book {
+        height: 76vh;
+        min-height: 560px;
+      }
+
+      .page-content {
+        padding: 47px 30px 43px;
+      }
+
+      .cover-content { padding-bottom: 25px; }
+
+      .schedule-item {
+        grid-template-columns: 72px 1fr;
+        gap: 9px;
+        font-size: 12px;
+      }
+
+      .gallery { grid-template-columns: 1fr 1fr; }
+
+      .brand { font-size: 11px; }
+
+      .control-btn { padding: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">✦ MAKDS 2026</div>
+      <div class="controls">
+        <button class="control-btn" id="menuButton">
+          ☰ Kandungan
+        </button>
+        <button class="control-btn" id="readingButton">
+          Mod Baca
+        </button>
+      </div>
+    </header>
+
+    <div class="book" id="book">
+
+      <!-- HALAMAN 1: KULIT HADAPAN -->
+      <section class="page cover active"
+               aria-label="Kulit Hadapan">
+        <div class="page-content cover-content">
+          <button class="open-btn" onclick="goToPage(1)">
+            ✦ BUKA BUKU ✦
+          </button>
+        </div>
+      </section>
+
+      <!-- HALAMAN 2: KATA ALU-ALUAN -->
+      <section class="page" aria-label="Kata Alu-aluan">
+        <div class="corner tl">❦</div>
+        <div class="corner tr">❦</div>
+
+        <div class="page-content">
+          <div class="eyebrow">Halaman 02</div>
+          <div class="ornament">✦ ❧ ✦</div>
+          <h2>Kata Alu-aluan</h2>
+
+          <div class="panel">
+            <p>
+              Ruangan ini disediakan untuk teks
+              kata alu-aluan rasmi pihak penganjur.
+            </p>
+
+            <p class="muted">
+              Teks ucapan, nama dan jawatan
+              penyampai menunggu pengesahan.
+            </p>
+          </div>
+
+          <div class="identity">
+            <img class="logo"
+                 src="assets/logo-kafa.png"
+                 alt="Logo KAFA SKJK 2"
+                 loading="lazy">
+          </div>
+        </div>
+      </section>
+
+      <!-- HALAMAN 3: MAKLUMAT MAJLIS -->
+      <section class="page" aria-label="Maklumat Majlis">
+        <div class="corner tl">❦</div>
+        <div class="corner tr">❦</div>
+
+        <div class="page-content">
+          <div class="eyebrow">Halaman 03</div>
+          <div class="ornament">✦ ❧ ✦</div>
+          <h2>Maklumat Majlis</h2>
+
+          <div class="details">
+            <div class="detail">
+              <strong>Nama Majlis</strong>
+              Majlis Anugerah Kecemerlangan
+              Diniah dan Sahsiah (MAKDS) 2026
+            </div>
+
+            <div class="detail">
+              <strong>Tarikh</strong>
+              28 November 2026 (Sabtu)
+            </div>
+
+            <div class="detail">
+              <strong>Masa</strong>
+              7.30 pagi – 11.45 pagi
+            </div>
+
+            <div class="detail">
+              <strong>Tempat</strong>
+              Dewan Saidina Abu Bakar,
+              SK Jalan Kuantan 2
+            </div>
+
+            <div class="detail">
+              <strong>Penganjur</strong>
+              KAFA Sekolah Kebangsaan Jalan Kuantan 2
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HALAMAN 4: ATUR CARA -->
+      <section class="page" aria-label="Atur Cara Rasmi">
+        <div class="corner tl">❦</div>
+        <div class="corner tr">❦</div>
+
+        <div class="page-content">
+          <div class="eyebrow">Halaman 04</div>
+          <div class="ornament">✦ ❧ ✦</div>
+          <h2>Atur Cara Program</h2>
+
+          <div class="schedule" id="schedule"></div>
+        </div>
+      </section>
+
+      <!-- HALAMAN 5: PENERIMA ANUGERAH -->
+      <section class="page" aria-label="Penerima Anugerah">
+        <div class="corner tl">❦</div>
+        <div class="corner tr">❦</div>
+
+        <div class="page-content">
+          <div class="eyebrow">Halaman 05</div>
+          <div class="ornament">✦ ❧ ✦</div>
+          <h2>Penerima Anugerah</h2>
+
+          <div class="award-list" id="awardList"></div>
+
+          <p class="muted">
+            Nama penerima anugerah akan dipaparkan
+            selepas disahkan oleh pihak penganjur.
+          </p>
+        </div>
+      </section>
+
+      <!-- HALAMAN 6: GALERI -->
+      <section class="page" aria-label="Galeri Gambar">
+        <div class="corner tl">❦</div>
+        <div class="corner tr">❦</div>
+
+        <div class="page-content">
+          <div class="eyebrow">Halaman 06</div>
+          <div class="ornament">✦ ❧ ✦</div>
+          <h2>Galeri Kenangan</h2>
+
+          <p>Memori dan aktiviti warga KAFA.</p>
+
+          <div class="gallery" id="gallery"></div>
+
+          <p class="muted">
+            Gambar hanya boleh diterbitkan
+            selepas mendapat kebenaran sewajarnya.
+          </p>
+        </div>
+      </section>
+
+      <!-- HALAMAN 7: PENGHARGAAN -->
+      <section class="page" aria-label="Penghargaan">
+        <div class="corner tl">❦</div>
+        <div class="corner tr">❦</div>
+
+        <div class="page-content">
+          <div class="eyebrow">Halaman 07</div>
+          <div class="ornament">✦ ❧ ✦</div>
+          <h2>Setinggi-tinggi Penghargaan</h2>
+
+          <div class="panel">
+            <p>
+              Ruangan ini disediakan untuk
+              penghargaan rasmi kepada semua pihak
+              yang menjayakan MAKDS 2026.
+            </p>
+
+            <p class="muted">
+              Kandungan akhir menunggu
+              pengesahan pihak penganjur.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- HALAMAN 8: PENUTUP -->
+      <section class="page" aria-label="Penutup">
+        <div class="corner tl">❦</div>
+        <div class="corner tr">❦</div>
+
+        <div class="page-content">
+          <div class="eyebrow">Halaman 08</div>
+          <div class="ornament">✦ ❧ ✦</div>
+
+          <h1>Terima Kasih</h1>
+
+          <p>
+            Majlis Anugerah Kecemerlangan<br>
+            Diniah dan Sahsiah 2026
+          </p>
+
+          <div class="identity">
+            <img class="logo"
+                 src="assets/logo-kafa.png"
+                 alt="Logo KAFA SKJK 2"
+                 loading="lazy">
+
+            <img class="khat"
+                 src="assets/khat-kafa.png"
+                 alt="Identiti khat KAFA Sekolah Kebangsaan Jalan Kuantan 2"
+                 loading="lazy">
+          </div>
+
+          <button class="open-btn" onclick="goToPage(0)">
+            KEMBALI KE KULIT HADAPAN
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- NAVIGASI BAWAH -->
+    <nav class="bottom-nav" aria-label="Navigasi halaman">
+      <span id="pageCounter">01 / 08</span>
+
+      <div class="nav-buttons">
+        <button id="prevButton" onclick="changePage(-1)">
+          ← Sebelum
+        </button>
+        <button id="nextButton" onclick="changePage(1)">
+          Seterusnya →
+        </button>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- MENU KANDUNGAN -->
+  <div class="menu-overlay" id="menuOverlay"
+       role="dialog" aria-modal="true"
+       aria-label="Isi kandungan">
+    <div class="menu-panel">
+      <h2>Isi Kandungan</h2>
+      <div id="menuItems"></div>
+      <button id="closeMenu">✕ Tutup Menu</button>
+    </div>
+  </div>
+
+  <script>
+    "use strict";
+
+    /* ===========================
+       DATA RASMI ATUR CARA
+    =========================== */
+
+    const scheduleData = [
+      {
+        time: "7.30 pagi",
+        title: "Pendaftaran",
+        detail: "Ketibaan murid, ibu bapa dan guru"
+      },
+      {
+        time: "8.00 pagi",
+        title: "Majlis Khatam Al-Quran",
+        detail: ""
+      },
+      {
+        time: "8.30 pagi",
+        title: "Ketibaan perasmi dan tetamu jemputan",
+        detail: ""
+      },
+      {
+        time: "8.45 pagi",
+        title: "Bacaan Doa, Nasyid Asmaul Husna, Nyanyian Lagu Negaraku & Wilayah Persekutuan",
+        detail: "Doa: Us Nu’man Zafri bin Mohd Nazir"
+      },
+      {
+        time: "9.00 pagi",
+        title: "Persembahan Tilawah Al-Quran",
+        detail: "Dibimbing oleh Us. Maududi"
+      },
+      {
+        time: "9.15 pagi",
+        title: "Ucapan Alu-Aluan (Ketua Pelajar, Ketua Guru) & Perasmian (YDP PIBG)",
+        detail: ""
+      },
+      {
+        time: "9.30 pagi",
+        title: "Persembahan Multimedia Montaj Pengenalan Warga KAFA",
+        detail: ""
+      },
+      {
+        time: "9.45 pagi",
+        title: "Penyampaian Hadiah & Anugerah (BAHAGIAN 1)",
+        detail: "Pencapaian terbaik dalam kelas; Pelajar terbaik UPSRA; Pelajar terbaik UPKK"
+      },
+      {
+        time: "10.30 pagi",
+        title: "Persembahan Nyanyian Murid Tahun 6",
+        detail: "Dibimbing oleh Us. Muhammad Husaini bin Zulbaharen"
+      },
+      {
+        time: "10.45 pagi",
+        title: "Penyampaian Hadiah & Anugerah (BAHAGIAN 2)",
+        detail: "Kehadiran dan sahsiah terbaik; Anugerah Tokoh Pelajar (Lelaki & Perempuan)"
+      },
+      {
+        time: "11.30 pagi",
+        title: "Persembahan Multimedia Video Memori Sepanjang Tahun",
+        detail: ""
+      },
+      {
+        time: "11.45 pagi",
+        title: "Makan tengah hari dan bersurai",
+        detail: ""
+      }
+    ];
+
+    const awardCategories = [
+      "Pencapaian terbaik dalam kelas",
+      "Pelajar terbaik UPSRA",
+      "Pelajar terbaik UPKK",
+      "Kehadiran dan sahsiah terbaik",
+      "Anugerah Tokoh Pelajar (Lelaki)",
+      "Anugerah Tokoh Pelajar (Perempuan)"
+    ];
+
+    /*
+      Masukkan gambar galeri yang telah
+      mendapat kebenaran penerbitan.
+
+      Contoh:
+      const galleryImages = [
+        { src: "assets/galeri/gambar-1.jpg",
+          alt: "Aktiviti KAFA" }
+      ];
+    */
+
+    const galleryImages = [];
+
+    const pageTitles = [
+      "Kulit Hadapan",
+      "Kata Alu-aluan",
+      "Maklumat Majlis",
+      "Atur Cara Rasmi",
+      "Penerima Anugerah",
+      "Galeri Gambar",
+      "Penghargaan",
+      "Penutup"
+    ];
+
+    /* ===========================
+       RENDER KANDUNGAN
+    =========================== */
+
+    const scheduleContainer =
+      document.getElementById("schedule");
+
+    scheduleData.forEach(item => {
+      const row = document.createElement("div");
+      row.className = "schedule-item";
+
+      const time = document.createElement("time");
+      time.textContent = item.time;
+
+      const content = document.createElement("div");
+      content.textContent = item.title;
+
+      if (item.detail) {
+        const detail = document.createElement("small");
+        detail.textContent = item.detail;
+        content.appendChild(detail);
+      }
+
+      row.append(time, content);
+      scheduleContainer.appendChild(row);
+    });
+
+    const awardContainer =
+      document.getElementById("awardList");
+
+    awardCategories.forEach(category => {
+      const item = document.createElement("div");
+      item.className = "award-item";
+      item.textContent = category;
+      awardContainer.appendChild(item);
+    });
+
+    const galleryContainer =
+      document.getElementById("gallery");
+
+    if (galleryImages.length === 0) {
+      const placeholder = document.createElement("div");
+      placeholder.className = "placeholder";
+      placeholder.style.gridColumn = "1 / -1";
+      placeholder.textContent =
+        "Galeri menunggu gambar yang telah diluluskan.";
+      galleryContainer.appendChild(placeholder);
+    } else {
+      galleryImages.forEach(image => {
+        const img = document.createElement("img");
+        img.src = image.src;
+        img.alt = image.alt;
+        img.loading = "lazy";
+        galleryContainer.appendChild(img);
+      });
+    }
+
+    /* ===========================
+       SISTEM HALAMAN
+    =========================== */
+
+    const pages = Array.from(
+      document.querySelectorAll(".page")
+    );
+
+    const pageCounter =
+      document.getElementById("pageCounter");
+
+    const prevButton =
+      document.getElementById("prevButton");
+
+    const nextButton =
+      document.getElementById("nextButton");
+
+    const menuOverlay =
+      document.getElementById("menuOverlay");
+
+    const menuItems =
+      document.getElementById("menuItems");
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    let currentPage = 0;
+    let isAnimating = false;
+    let animationTimer = null;
+
+    function updateNavigation() {
+      pageCounter.textContent =
+        String(currentPage + 1).padStart(2, "0") +
+        " / " +
+        String(pages.length).padStart(2, "0");
+
+      prevButton.disabled = currentPage === 0;
+      nextButton.disabled =
+        currentPage === pages.length - 1;
+
+      try {
+        localStorage.setItem(
+          "makds-last-page",
+          String(currentPage)
+        );
+      } catch (_) {
+        // Simpanan setempat tidak tersedia.
+      }
+    }
+
+    function goToPage(targetPage) {
+      if (isAnimating) return;
+
+      if (
+        targetPage < 0 ||
+        targetPage >= pages.length ||
+        targetPage === currentPage
+      ) return;
+
+      closeMenu();
+
+      const oldPage = pages[currentPage];
+      const newPage = pages[targetPage];
+
+      const forward = targetPage > currentPage;
+
+      if (reduceMotion.matches ||
+          document.body.classList.contains("reading-mode")) {
+        oldPage.classList.remove("active");
+        newPage.classList.add("active");
+        currentPage = targetPage;
+        newPage.querySelector(".page-content").scrollTop = 0;
+        updateNavigation();
+        return;
+      }
+
+      isAnimating = true;
+      newPage.classList.add("active");
+
+      const outClass = forward
+        ? "flip-out-next"
+        : "flip-out-prev";
+
+      const inClass = forward
+        ? "flip-in-next"
+        : "flip-in-prev";
+
+      oldPage.classList.add(outClass);
+      newPage.classList.add(inClass);
+
+      animationTimer = setTimeout(() => {
+        oldPage.classList.remove("active", outClass);
+        newPage.classList.remove(inClass);
+
+        currentPage = targetPage;
+        newPage.querySelector(".page-content").scrollTop = 0;
+
+        isAnimating = false;
+        animationTimer = null;
+        updateNavigation();
+      }, 750);
+    }
+
+    function changePage(direction) {
+      goToPage(currentPage + direction);
+    }
+
+    /* ===========================
+       MENU KANDUNGAN
+    =========================== */
+
+    function openMenu() {
+      menuOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      document.getElementById("closeMenu").focus();
+    }
+
+    function closeMenu() {
+      menuOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    pageTitles.forEach((title, index) => {
+      const button = document.createElement("button");
+      button.textContent =
+        String(index + 1).padStart(2, "0") +
+        " — " + title;
+
+      button.addEventListener("click", () => {
+        closeMenu();
+        goToPage(index);
+      });
+
+      menuItems.appendChild(button);
+    });
+
+    document.getElementById("menuButton")
+      .addEventListener("click", openMenu);
+
+    document.getElementById("closeMenu")
+      .addEventListener("click", closeMenu);
+
+    menuOverlay.addEventListener("click", event => {
+      if (event.target === menuOverlay) closeMenu();
+    });
+
+    /* ===========================
+       MOD MEMBACA
+    =========================== */
+
+    const readingButton =
+      document.getElementById("readingButton");
+
+    readingButton.addEventListener("click", () => {
+      document.body.classList.toggle("reading-mode");
+
+      const enabled =
+        document.body.classList.contains("reading-mode");
+
+      readingButton.textContent =
+        enabled ? "Mod Buku" : "Mod Baca";
+    });
+
+    /* ===========================
+       KEYBOARD
+    =========================== */
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeMenu();
+        return;
+      }
+
+      if (menuOverlay.classList.contains("open")) {
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+        changePage(1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        changePage(-1);
+      }
+    });
+
+    /* ===========================
+       SWIPE SENTUHAN
+    =========================== */
+
+    const book = document.getElementById("book");
+
+    let startX = 0;
+    let startY = 0;
+
+    book.addEventListener("touchstart", event => {
+      startX = event.changedTouches[0].screenX;
+      startY = event.changedTouches[0].screenY;
+    }, { passive: true });
+
+    book.addEventListener("touchend", event => {
+      if (document.body.classList.contains("reading-mode")) {
+        return;
+      }
+
+      const diffX =
+        event.changedTouches[0].screenX - startX;
+
+      const diffY =
+        event.changedTouches[0].screenY - startY;
+
+      if (
+        Math.abs(diffX) > 65 &&
+        Math.abs(diffX) > Math.abs(diffY) * 1.5
+      ) {
+        changePage(diffX < 0 ? 1 : -1);
+      }
+    }, { passive: true });
+
+    /* ===========================
+       PARTIKEL EMAS
+    =========================== */
+
+    function addParticles() {
+      if (reduceMotion.matches) return;
+
+      pages.forEach(page => {
+        if (page.classList.contains("cover")) return;
+
+        const container = document.createElement("div");
+        container.className = "particles";
+        container.setAttribute("aria-hidden", "true");
+
+        for (let i = 0; i < 12; i++) {
+          const particle = document.createElement("span");
+          particle.className = "particle";
+
+          particle.style.left = (8 + Math.random() * 84) + "%";
+          particle.style.top = (8 + Math.random() * 84) + "%";
+          particle.style.animationDelay =
+            (Math.random() * 4) + "s";
+
+          container.appendChild(particle);
+        }
+
+        page.appendChild(container);
+      });
+    }
+
+    addParticles();
+
+    /* ===========================
+       PULIHKAN HALAMAN TERAKHIR
+    =========================== */
+
+    try {
+      const saved = Number(
+        localStorage.getItem("makds-last-page")
+      );
+
+      if (
+        Number.isInteger(saved) &&
+        saved >= 0 &&
+        saved < pages.length
+      ) {
+        pages[0].classList.remove("active");
+        pages[saved].classList.add("active");
+        currentPage = saved;
+      }
+    } catch (_) {
+      // Teruskan pada kulit hadapan.
+    }
+
+    updateNavigation();
+
+    /* ===========================
+       SOKONGAN BUTANG GLOBAL
+    =========================== */
+
+    window.goToPage = goToPage;
+    window.changePage = changePage;
+  </script>
+</body>
+</html>
