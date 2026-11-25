@@ -916,6 +916,134 @@ body.reading-mode .cover-content {
     scroll-behavior: auto !important;
   }
 }
+/* REKA BENTUK JADUAL PENERIMA ANUGERAH */
+
+.award-tables {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.award-section-title {
+  margin: 35px 0 20px;
+  padding: 16px 10px;
+  color: #ffe7a0;
+  background: linear-gradient(135deg, #123e85, #061638);
+  border: 1px solid #e9c579;
+  border-radius: 10px;
+  font-size: clamp(16px, 3vw, 23px);
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,.25);
+}
+
+.award-table-wrapper {
+  width: 100%;
+  margin: 0 auto 22px;
+  border: 1px solid rgba(233,197,121,.65);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(3,17,50,.65);
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+}
+
+.award-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.award-table caption {
+  padding: 12px 8px;
+  background: linear-gradient(135deg, #b68a3c, #ffe7a0, #c79642);
+  color: #061638;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  caption-side: top;
+  text-align: center;
+}
+
+.award-table th {
+  padding: 12px 10px;
+  background: #103b7b;
+  color: #ffe7a0;
+  border-bottom: 1px solid #e9c579;
+  font-weight: 700;
+  text-align: center;
+}
+
+.award-table td {
+  padding: 13px 10px;
+  border-bottom: 1px solid rgba(233,197,121,.2);
+  color: #fffaf0;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.award-table td:first-child {
+  color: #ffe7a0;
+  font-weight: 700;
+  text-align: center;
+}
+
+.award-table td:nth-child(2) {
+  font-weight: 600;
+}
+
+.award-table td:nth-child(n+3) {
+  text-align: center;
+}
+
+.award-table tbody tr:nth-child(even) {
+  background: rgba(22,69,142,.25);
+}
+
+.award-table tbody tr:hover {
+  background: rgba(233,197,121,.12);
+}
+
+.award-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* PAPARAN JADUAL PADA TELEFON */
+
+@media (max-width: 700px) {
+
+  .award-section-title {
+    margin: 25px 0 15px;
+    padding: 12px 8px;
+    font-size: 15px;
+  }
+
+  .award-table {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .award-table caption {
+    padding: 10px 5px;
+    font-size: 13px;
+  }
+
+  .award-table th {
+    padding: 9px 5px;
+    font-size: 10px;
+  }
+
+  .award-table td {
+    padding: 10px 5px;
+  }
+
+  .award-table-wrapper {
+    margin-bottom: 17px;
+  }
+
+}
 </style>
 </head>
 
@@ -1400,13 +1528,181 @@ const scheduleData = [
    KATEGORI ANUGERAH
 ===================================== */
 
-const awardCategories = [
-  "Pencapaian terbaik dalam kelas",
-  "Pelajar terbaik UPSRA",
-  "Pelajar terbaik UPKK",
-  "Kehadiran dan sahsiah terbaik",
-  "Anugerah Tokoh Pelajar (Lelaki)",
-  "Anugerah Tokoh Pelajar (Perempuan)"
+const classAwards = [
+  ["1 TAQWA", [
+    "HAYLA INSYIRAH BINTI MUHAMMAD USAIRI",
+    "MUHAMMAD IMAN ARSYAQ BIN MOHD ASYRAF",
+    "AAISYA FAZREENA BT MOHAMMAD FAZREN"
+  ]],
+  ["1 EHSAN", [
+    "MUZAFFAR AJWA BIN AZFAR",
+    "AMMAR ATHIF BIN AKMAL ASYRAF",
+    "MUHAMMAD AISY MATEEN BIN MUHAMMAD SYAZRIN"
+  ]],
+  ["1 IMAN", [
+    "RANIYAH AZ ZAHRA BINTI ALFIAN ARIF",
+    "HARIZ ZAHIN BIN SARIPPUDIN",
+    "MARIAM FARIHA BINTI HUSNUL FIRDAUS"
+  ]],
+  ["2 TAQWA", [
+    "AARIZ LUQMAN BIN MD FAIZAL",
+    "WAN SURI MARYAM BINTI WAN UMAR HAFSYAM",
+    "NUHA IRDINA BINTI NASRUDDIN"
+  ]],
+  ["2 EHSAN", [
+    "RAFIF AHNAF BIN RAHIM",
+    "NELLISA BINTI MOHD SHAUQIE ASHRAF",
+    "NUR KHAIRA SOFEA BINTI MUHAMMAD SYAFIQ"
+  ]],
+  ["2 IMAN", [
+    "MUHAMMAD FAIQ REZFAN BIN MUHAMMAD FAUZAN",
+    "MUHAMMAD ZAYN HAQEEM BIN NUZUL FAHMI",
+    "AZAAD HAMZA BIN MUHAMMAD NAZMI"
+  ]],
+  ["2 HUFFAZ", [
+    "NUR ARIANA SOFIA BINTI MUHAMAD SYAIR",
+    "MUHAMMAD HATIIM ARFA BIN MUHAMMAD NADZRUL",
+    "MUHAMMAD BIN MOHD RUSDI"
+  ]],
+  ["3 TAQWA", [
+    "LUTH MIKHAIL BIN AHMAD NAJMIE",
+    "WAN SARAH BINTI WAN AHMAD NAJLI",
+    "NUR FARIEHA SYAHIERA BINTI MUHAMMAD FIRDAUS"
+  ]],
+  ["3 EHSAN", [
+    "KHASYIF DZIYADD BIN MOHD AZHAR",
+    "IFFAT AHMAD FAIQ BIN IBRAHIM",
+    "NOR AMIRA AMANI BT SHAHRUL AZWA HILMI"
+  ]],
+  ["3 IMAN", [
+    "MUHAMMAD LUTHFULLAH BIN MUHD FAUZIE",
+    "ALTTHEA ALEENA BINTI MOHD HAFIZI",
+    "MIKHAEL BIN MOHD KHAIRUL ANUAR"
+  ]],
+  ["3 HUFFAZ", [
+    "NUR SYAURAH IZZATI BINTI MOHD SYAFIQ",
+    "MUHAMMAD UMAR UKASYAH BIN HIPNIE",
+    "BADRINA SYAKIRA BINTI MOHD SUFIAN"
+  ]],
+  ["4 TAQWA", [
+    "SIDDIQAH NUSRAH FATINI BINTI SAFRI NAZRIN",
+    "AMEERUL KHALEEF BIN KHAIRUL NIZAM",
+    "UMMU TIARA BINTI KAMARUS SOLIHIN"
+  ]],
+  ["4 EHSAN", [
+    "NUR AIMY MARISSA BINTI KAMARUL HAZLAM",
+    "UWAIS NAUFAL BIN NOR HISAM",
+    "MUHAMMAD EIYAD KASYAF BIN FAIZAL HILMIE"
+  ]],
+  ["4 IMAN", [
+    "MUHAMMAD RAYQAL MIKAIL BIN MOHD EZAT",
+    "WAN NUR ALYAA BINTI WAN KADAR RASMAN",
+    "MUHAMMAD HARRAZ AYMAN BIN MOHD HAZRIL"
+  ]],
+  ["5 TAQWA", [
+    "MUHAMAD FARISH AMSYAR BIN MOHD FAIZAL",
+    "NAURA AISYA BINTI MOHD KHASIDIE HASLAM",
+    "NUR IMAN AMANI BINTI MOHD NASIR"
+  ]],
+  ["5 EHSAN", [
+    "NUR AKMA SAFIYYA BINTI SYAMSUL AZMIL",
+    "NUR AUNI BINTI MOHAMAD RAHIM ALGHAZI",
+    "HAQQI BIN MOHD HATTA"
+  ]],
+  ["5 IMAN", [
+    "NUR ULFAH ZAHRA BINTI FADHLI",
+    "NUR ZAHRA AMANI BINTI MOHD FADZIL",
+    "MUHAMMAD HARITH DANISH BIN MUHAMMAD SHAHRIL"
+  ]],
+  ["6 TAQWA", [
+    "AHMAD ZAIM NAUFAL BIN OMAR ZAID",
+    "NUR ADELIA HUMAIRA BINTI MOHD AZARUDDIN HAFIZ",
+    "MUHAMMAD AL-FATEEH BIN HAIRUL NIZAM"
+  ]],
+  ["6 EHSAN", [
+    "MUHAMMAD DANISH ISKANDAR BIN ABDULLAH",
+    "ORKED MAISARAH BINTI NOR HISAM",
+    "SAFARAZ NUSAIR FAYYADH BIN SAFRI NAZRIN"
+  ]],
+  ["6 IMAN", [
+    "NUR HIJANAH AUNI BINTI MUHAMAD RIZAL",
+    "MUHAMMAD AQEEF BIN MOHAMED WAHYUDEEN",
+    "NIK MUHAMMAD AMZAR IDLAN BIN NIK HASNAN"
+  ]]
+];
+
+const upsraAwards = [
+  ["7 MUMTAZ", [
+    ["MUHAMMAD DANISH ISKANDAR BIN ABDULLAH", "6 EHSAN"],
+    ["NUR A’ISYAH ZAAHIRAH BT MOHD FAIZAL", "6 EHSAN"],
+    ["NUR ADRIANA BALQIS BT NOR HISAM", "6 EHSAN"]
+  ]],
+  ["6 MUMTAZ", [
+    ["SAFARAZ NUSAIR FAYYADH BIN SAFRI NAZRIN", "6 EHSAN"],
+    ["ORKED MAISARAH BT NOR HISAM", "6 EHSAN"],
+    ["MUHAMMAD BAIHAQI BIN MOHAMAD SUPIAN", "6 EHSAN"]
+  ]],
+  ["5 MUMTAZ", [
+    ["AHMAD ZAIM NAUFAL BIN OMAR ZAID", "6 TAQWA"],
+    ["ARISSA NASUHA BT SHAZWAN", "6 EHSAN"],
+    ["MOHAMMAD AL-FAQIEH BIN MOHAMMAD AL-FAROUQ", "6 EHSAN"],
+    ["MUADZ DARWISY BIN ABD KHALID", "6 EHSAN"],
+    ["MUHAMMAD KHAIRUL IKHWAN AFIQ BIN MOHD KHAIRUL", "6 EHSAN"],
+    ["NIK MUHAMMAD AMZAR IDLAN BIN NIK HASNAN", "6 IMAN"],
+    ["QAYSAR DARWISY BIN MUHAMMAD FITRI", "6 IMAN"],
+    ["UZAYR RAQEEB BIN AHMAD SYAZWAN", "6 EHSAN"]
+  ]],
+  ["4 MUMTAZ", [
+    ["ARISSA NUR QAISAARA BT AMIR AKMAL", "6 IMAN"],
+    ["DHIA NUR DAMIA BT MOHAMMAD YATHRIB", "6 IMAN"],
+    ["ARYAN DANISH BIN AHMAD FADHLI", "6 EHSAN"],
+    ["MUHAMMAD RIFQI BIN ALJUFRI", "6 EHSAN"],
+    ["NUR SARRA SYAKILA BT MOHD HELMI", "6 EHSAN"],
+    ["NUR AMIRA TASNIM BT AZNI", "6 EHSAN"],
+    ["NUR ZARA ALEESHA BT AHMAD ZAKI", "6 IMAN"]
+  ]]
+];
+
+const upkkAwards = [
+  ["9A", [
+    ["NUR ADRIANA BALQIS BT NOR HISAM", "6 EHSAN"],
+    ["ORKED MAISARAH BT NOR HISAM", "6 EHSAN"],
+    ["UZAYR RAQEEB BIN AHMAD SYAZWAN", "6 EHSAN"],
+    ["MUHAMMAD DANISH ISKANDAR BIN ABDULLAH", "6 EHSAN"],
+    ["NUR A’ISYAH ZAAHIRAH BT MOHD FAIZAL", "6 EHSAN"],
+    ["QAYSAR DARWISY BIN MUHAMMAD FITRI", "6 IMAN"]
+  ]],
+  ["8A", [
+    ["MOHAMMAD AL-FAQIEH BIN MOHAMMAD AL-FAROUQ", "6 EHSAN"],
+    ["NIK MUHAMMAD AMZAR IDLAN BIN NIK HASNAN", "6 IMAN"],
+    ["SAFARAZ NUSAIR FAYYADH BIN SAFRI NAZRIN", "6 EHSAN"],
+    ["AMEERA BINTI AMMAR", "6 EHSAN"],
+    ["NUR ZARA ALEESHA BINTI AHMAD ZAKI", "6 IMAN"]
+  ]],
+  ["7A", [
+    ["ARISSA NASUHA BINTI SHAZWAN", "6 EHSAN"],
+    ["ARISSA NUR QAISAARA BT AMIR AKMAL", "6 IMAN"],
+    ["MUHAMMAD BAIHAQI BIN MOHAMAD SUPIAN", "6 EHSAN"],
+    ["MUHAMMAD KHAIRUL IKHWAN AFIQ BIN MOHD KHAIRUL", "6 EHSAN"],
+    ["NUR SARRA SYAKILA BT MOHD HELMI", "6 EHSAN"],
+    ["MUADZ DARWISY BIN ABD KHALID", "6 EHSAN"],
+    ["MUHAMMAD LUTFI BIN ABU BAKAR", "6 IMAN"]
+  ]]
+];
+
+const attendanceAwards = [
+  ["TAHAP 1", "NUR ARIANA SOFIA BINTI MUHAMAD SYAIR", "2 HUFFAZ", "100%"],
+  ["TAHAP 2", "SIDDIQAH NUSRAH FATINI BINTI SAFRI NAZRIN", "4 TAQWA", "100%"]
+];
+
+const characterAwards = [
+  ["TAHAP 1", "MUHAMMAD HARRAZ NAUFAL BIN MUHAMAD SYAIR", "3 TAQWA", "100%"],
+  ["TAHAP 2", "AHMAD ZAIM NAUFAL BIN OMAR ZAID", "6 TAQWA", "100%"]
+];
+
+const specialAwards = [
+  ["TOKOH PELAJAR LELAKI", "Bakal diumumkan pada hari majlis"],
+  ["TOKOH PELAJAR PEREMPUAN", "Bakal diumumkan pada hari majlis"]
 ];
 
 /* =====================================
@@ -1471,23 +1767,139 @@ scheduleData.forEach(item => {
 const awardContainer =
   document.getElementById("awardList");
 
-awardCategories.forEach(category => {
+awardContainer.classList.remove("award-grid");
+awardContainer.classList.add("award-tables");
 
-  const card = document.createElement("div");
-  card.className = "award-card";
+function addAwardHeading(title) {
+  const heading = document.createElement("h3");
+  heading.className = "award-section-title";
+  heading.textContent = title;
+  awardContainer.appendChild(heading);
+}
 
-  const icon = document.createElement("span");
-  icon.className = "award-icon";
-  icon.textContent = "✦";
-  icon.setAttribute("aria-hidden", "true");
+function addAwardTable(title, headers, rows) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "award-table-wrapper";
 
-  const title = document.createElement("span");
-  title.textContent = category;
+  const table = document.createElement("table");
+  table.className = "award-table";
 
-  card.append(icon, title);
-  awardContainer.appendChild(card);
+  if (title) {
+    const caption = document.createElement("caption");
+    caption.textContent = title;
+    table.appendChild(caption);
+  }
 
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+
+  headers.forEach(header => {
+    const th = document.createElement("th");
+    th.scope = "col";
+    th.textContent = header;
+    headerRow.appendChild(th);
+  });
+
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+
+  rows.forEach(row => {
+    const tr = document.createElement("tr");
+
+    row.forEach(value => {
+      const td = document.createElement("td");
+      td.textContent = value;
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+
+  table.appendChild(tbody);
+  wrapper.appendChild(table);
+  awardContainer.appendChild(wrapper);
+}
+
+addAwardHeading("🏆 PENCAPAIAN TERBAIK DALAM KELAS");
+
+const positions = [
+  "🥉 Ketiga",
+  "🥈 Kedua",
+  "🥇 Pertama"
+];
+
+classAwards.forEach(([className, names]) => {
+  addAwardTable(
+    "KELAS " + className,
+    ["Kedudukan", "Nama Penerima"],
+    names.map((name, index) => [
+      positions[index],
+      name
+    ])
+  );
 });
+
+addAwardHeading("🏆 PELAJAR TERBAIK UPSRA 2026");
+
+upsraAwards.forEach(([result, students]) => {
+  addAwardTable(
+    result,
+    ["Bil.", "Nama Penerima", "Kelas"],
+    students.map(([name, className], index) => [
+      index + 1,
+      name,
+      className
+    ])
+  );
+});
+
+addAwardHeading("🏆 PELAJAR TERBAIK UPKK 2025");
+
+upkkAwards.forEach(([result, students]) => {
+  addAwardTable(
+    result,
+    ["Bil.", "Nama Penerima", "Kelas"],
+    students.map(([name, className], index) => [
+      index + 1,
+      name,
+      className
+    ])
+  );
+});
+
+addAwardHeading("🏆 KEHADIRAN TERBAIK");
+
+addAwardTable(
+  "",
+  ["Tahap", "Nama Penerima", "Kelas", "Pencapaian"],
+  attendanceAwards
+);
+
+addAwardHeading("🏆 SAHSIAH TERBAIK");
+
+addAwardTable(
+  "",
+  ["Tahap", "Nama Penerima", "Kelas", "Pencapaian"],
+  characterAwards
+);
+
+addAwardHeading("👑 ANUGERAH TOKOH PELAJAR");
+
+addAwardTable(
+  "",
+  ["Kategori", "Pengumuman"],
+  specialAwards
+);
+
+const awardNotice =
+  awardContainer.parentElement.querySelector(".notice");
+
+if (awardNotice) {
+  awardNotice.textContent =
+    "Tahniah kepada semua penerima anugerah MAKDS 2026. Semoga terus cemerlang dalam ilmu dan sahsiah.";
+}
 
 /* =====================================
    GALERI
